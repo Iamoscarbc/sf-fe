@@ -7,7 +7,7 @@
       :items-per-page="5"
       class="elevation-1"
       :loading="loading"
-      loading-text="Obteniendo registros de pago de penalidades"
+      loading-text="Obteniendo registros de fiscalizaciones"
     >
       <template v-slot:item.actions="{ item }">
         <v-tooltip bottom v-if="!loadingFileDownload">
@@ -54,7 +54,7 @@
           ></v-progress-circular>
         </div>
       </template>
-      </v-data-table>
+    </v-data-table>
   </div>
 </template>
 

@@ -2,17 +2,64 @@
     <div class="payment-penalites-page">
       <h2>Pago de Penalidades</h2>
       <v-data-table
-        :headers="headers"
-        :items="desserts"
-        :items-per-page="5"
-        class="elevation-1"
-        :loading="loading"
-        loading-text="Obteniendo registros de fiscalizaciones"
-      ></v-data-table>
+      :headers="headers"
+      :items="list"
+      :items-per-page="5"
+      class="elevation-1"
+      :loading="loading"
+      loading-text="Obteniendo registros de pago de penalidades"
+    >
+      <template v-slot:item.actions="{ item }">
+        <v-tooltip bottom v-if="!loadingFileDownload">
+          <template v-slot:activator="{ on, attrs }">
+              <v-icon 
+                  color="info"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="openModalInspect(a)"
+                  large
+                  >mdi-pencil</v-icon>
+          </template>
+          <span>Editar</span>
+        </v-tooltip>
+        <v-tooltip bottom v-if="!loadingFileDownload">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon 
+              color="error"
+              v-bind="attrs"
+              v-on="on"
+              @click="deleteConfirm(a)"
+              large
+              >mdi-trash-can</v-icon>
+          </template>
+          <span>Eliminar</span>
+        </v-tooltip>
+      </template>
+      <template v-slot:item.documents="{ item }">
+        <div v-for="a in item.documents" :key="a">
+          <v-tooltip bottom v-if="!loadingFileDownload">
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon 
+                v-bind="attrs"
+                v-on="on"
+                @click="downloadFile(a)"
+                large
+                >mdi-file-download-outline</v-icon>
+            </template>
+            <span>{{a.path}}</span>
+          </v-tooltip>
+          <v-progress-circular v-else
+              indeterminate
+              color="primary"
+          ></v-progress-circular>
+        </div>
+      </template>
+    </v-data-table>
     </div>
   </template>
   
   <script>
+  import { mapActions } from 'vuex'
   export default {
     name: 'PaymentPenaltiesPage',
     layout: 'auth',
@@ -32,90 +79,32 @@
           { text: 'Protein (g)', value: 'protein' },
           { text: 'Iron (%)', value: 'iron' },
         ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: 1,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: 1,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: 7,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: 8,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: 16,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: 0,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: 2,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: 45,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: 22,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: 6,
-          },
-        ],
+        list: [],
+        loadingFileDownload: false
       }
+    },
+  methods: {
+    ...mapActions("payment-penaltie", ['getPaymentsPenalties']),
+    async getPaymentsPenaltiesService(){
+      try {
+        this.loading = true
+        let res = await this.getPaymentsPenalties()
+        if(res.success){
+          this.list = res.data
+        }
+      } catch (error) {
+        console.log("error", error)
+      } finally {
+        this.loading = false
+      }
+    },
+    async downloadFile(a){
+      console.log("a", a)
     }
+  },
+  mounted(){
+    this.getPaymentsPenaltiesService()
+  }
   }
   </script>
 <style lang="scss">

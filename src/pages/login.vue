@@ -3,6 +3,7 @@
       <div class="form-login">
         <div class="container-logo">
           <img src="@/assets/img/logo-MMl.png">
+          <span>Control de Registro de Fiscalizaciones</span>
         </div>
         <v-form>
           <v-text-field
@@ -85,11 +86,19 @@
         flex-direction: column;
         align-items: center;
         .container-logo{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
           margin-bottom: 20px;
           img{
             width: 100%;
             max-width: 230px;
             height: 100px;
+          }
+          span{
+            color: #1a4a84;
+            font-weight: 800;
           }
         }
         .v-form{
