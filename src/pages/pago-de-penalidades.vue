@@ -16,7 +16,7 @@
                   color="info"
                   v-bind="attrs"
                   v-on="on"
-                  @click="openModalInspect(a)"
+                  @click="openModalPaymentPenaltie(a)"
                   large
                   >mdi-pencil</v-icon>
           </template>
@@ -54,6 +54,9 @@
           ></v-progress-circular>
         </div>
       </template>
+      <template v-slot:item.amount="{ item }">        
+          <span>S/. {{ item.amount }}</span>
+      </template>
     </v-data-table>
     </div>
   </template>
@@ -67,44 +70,41 @@
       return {
         loading: false,
         headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
+            { text: '', value: 'actions' },
+            { text: 'Fecha', value: 'date' },
+            { text: 'Nombres', value: 'firstname' },
+            { text: 'Apellidos', value: 'lastname' },
+            { text: 'DNI', value: 'docnumber' },
+            { text: 'Motivo', value: 'paymentReason' },
+            { text: 'Monto', value: 'amount' },
+            { text: 'Documentos', value: 'documents' }
         ],
         list: [],
         loadingFileDownload: false
       }
     },
-  methods: {
-    ...mapActions("payment-penaltie", ['getPaymentsPenalties']),
-    async getPaymentsPenaltiesService(){
-      try {
-        this.loading = true
-        let res = await this.getPaymentsPenalties()
-        if(res.success){
-          this.list = res.data
+    methods: {
+      ...mapActions("payment-penaltie", ['getPaymentsPenalties']),
+      async getPaymentsPenaltiesService(){
+        try {
+          this.loading = true
+          let res = await this.getPaymentsPenalties()
+          if(res.success){
+            this.list = res.data
+          }
+        } catch (error) {
+          console.log("error", error)
+        } finally {
+          this.loading = false
         }
-      } catch (error) {
-        console.log("error", error)
-      } finally {
-        this.loading = false
+      },
+      async downloadFile(a){
+        console.log("a", a)
       }
     },
-    async downloadFile(a){
-      console.log("a", a)
+    mounted(){
+      this.getPaymentsPenaltiesService()
     }
-  },
-  mounted(){
-    this.getPaymentsPenaltiesService()
-  }
   }
   </script>
 <style lang="scss">
