@@ -1,6 +1,13 @@
 <template>
     <div class="payment-penalites-page">
-      <h2>Pago de Penalidades</h2>
+      <div class="title-container">
+        <h2>Pago de Penalidades</h2>
+        <v-btn
+          color="primary"
+          to="/pago-de-penalidades/agregar">
+          Registrar
+        </v-btn>
+      </div>
       <v-data-table
       :headers="headers"
       :items="list"
@@ -112,6 +119,11 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .title-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 </style>
   

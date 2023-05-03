@@ -1,6 +1,13 @@
 <template>
   <div class="inspect-page">
-    <h2>Registro de Fiscalizaciones</h2>
+    <div class="title-container">
+      <h2>Registro de Fiscalizaciones</h2>
+      <v-btn
+        color="primary"
+        to="/fiscalizaciones/agregar">
+        Registrar
+      </v-btn>
+    </div>
     <v-data-table
       :headers="headers"
       :items="list"
@@ -108,5 +115,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .title-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 </style>

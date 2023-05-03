@@ -1,6 +1,13 @@
 <template>
-  <div class="payment-penalites-page">
-    <h2>Usuarios</h2>
+  <div class="user-page">
+    <div class="title-container">
+      <h2>Usuarios</h2>
+      <v-btn
+        color="primary"
+        to="/usuarios/agregar">
+        Registrar
+      </v-btn>
+    </div>
     <v-data-table
     :headers="headers"
     :items="list"
@@ -16,7 +23,7 @@
                 color="info"
                 v-bind="attrs"
                 v-on="on"
-                @click="openModalPaymentPenaltie(a)"
+                @click="openModalUser(a)"
                 large
                 >mdi-pencil</v-icon>
         </template>
@@ -86,9 +93,14 @@ export default {
 }
 </script>
 <style lang="scss">
-.payment-penalites-page{
-display: flex;
-flex-direction: column;
-gap: 20px;
+.user-page{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .title-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 </style>
