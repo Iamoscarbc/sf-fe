@@ -79,9 +79,9 @@
         headers: [
             { text: '', value: 'actions' },
             { text: 'Fecha', value: 'date' },
-            { text: 'Nombres', value: 'firstname' },
-            { text: 'Apellidos', value: 'lastname' },
-            { text: 'DNI', value: 'docnumber' },
+            { text: 'Nombres', value: 'idUser.firstname' },
+            { text: 'Apellidos', value: 'idUser.lastname' },
+            { text: 'DNI', value: 'idUser.docnumber' },
             { text: 'Motivo', value: 'paymentReason' },
             { text: 'Monto', value: 'amount' },
             { text: 'Documentos', value: 'documents' }

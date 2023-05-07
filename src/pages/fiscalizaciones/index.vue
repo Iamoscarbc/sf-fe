@@ -76,9 +76,9 @@ export default {
       headers: [
           { text: '', value: 'actions' },
           { text: 'Fecha', value: 'date' },
-          { text: 'Nombres', value: 'firstname' },
-          { text: 'Apellidos', value: 'lastname' },
-          { text: 'DNI', value: 'docnumber' },
+          { text: 'Nombres', value: 'idUser.firstname' },
+          { text: 'Apellidos', value: 'idUser.lastname' },
+          { text: 'DNI', value: 'idUser.docnumber' },
           { text: 'Descripción', value: 'description' },
           { text: 'Documentos', value: 'documents' }
       ],

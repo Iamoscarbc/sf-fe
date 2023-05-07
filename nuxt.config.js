@@ -92,5 +92,13 @@ export default {
   server: {
     port: 3001, // default: 3000
     host: '0.0.0.0',
+  },
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/'
+    }
   }
 }

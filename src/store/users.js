@@ -10,5 +10,8 @@ export const mutations = {}
 export const actions = {
     async getUsers({state, commit}){
         return await UsersService.getUsers(this.$axios)
+    },
+    async createUser({state, commit}, data){
+        return await UsersService.createUser(this.$axios, data)
     }
 }

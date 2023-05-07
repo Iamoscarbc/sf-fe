@@ -9,7 +9,13 @@
   export default {
     name: 'InspectAddPage',
     layout: 'auth',
-    
+    data(){
+      return {
+        date: '',
+        description: '',
+        documents: ''
+      }
+    }
   }
   </script>
   <style lang="scss">

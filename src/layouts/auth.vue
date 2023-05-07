@@ -53,7 +53,7 @@
 import { mapActions } from 'vuex'
   export default {
     name: 'AuthLayout',
-    // middleware: ['auth'],
+    middleware: ['auth'],
     data () {
       return {
         drawer: true,
@@ -93,9 +93,8 @@ import { mapActions } from 'vuex'
       }
     },
     methods:{
-      ...mapActions("account",['logout']),
-      closeSession(){
-        this.logout()
+      async closeSession(){
+        await this.$auth.logout('local')
       }
     }
   }

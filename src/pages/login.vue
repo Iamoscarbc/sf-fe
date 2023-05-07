@@ -5,14 +5,20 @@
           <img src="@/assets/img/logo-MMl.png">
           <span>Control de Registro de Fiscalizaciones</span>
         </div>
-        <v-form>
+        <v-form
+          ref="loginForm"
+          v-model="validForm">
           <v-text-field
+            v-model="data.user"
+            :rules="rules.user"
             label="Usuario"
             prepend-inner-icon="mdi-account"
             height="60"
             solo
           ></v-text-field>
           <v-text-field
+            v-model="data.password"
+            :rules="rules.password"
             label="Contraseña"
             prepend-inner-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -22,9 +28,12 @@
             solo
           ></v-text-field>
           <v-btn
+            :loading="loading"
+            :disabled="!validForm || loading"
             color="primary"
             elevation="10"
-            x-large>
+            x-large
+            @click="login()">
             Ingresar
           </v-btn>
         </v-form>
@@ -37,7 +46,28 @@
     name: 'LoginPage',
     data(){
       return{
-        showPassword: false
+        showPassword: false,
+        validForm: false,
+        loading: false,
+        data: {
+          user: null,
+          password: null
+        },
+        rules: {
+          user: [
+            v => !!v || 'Usuario es requerido',
+          ],
+          password: [
+            v => !!v || 'Contraseña es requerido',
+          ]
+        }
+      }
+    },
+    methods: {
+      async login(){
+        this.loading = true
+        await this.$auth.loginWith('local', { data: this.data })
+        this.loading = false
       }
     }
   }
