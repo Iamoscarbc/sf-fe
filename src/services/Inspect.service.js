@@ -16,5 +16,8 @@ export default {
     },
     getInspects: ($axios) => {
         return $axios.$get(`${base}/inspects`)
+    },
+    getOneInspect: ($axios, data) => {
+        return $axios.$get(`${base}/inspect/${data}`)
     }
 }

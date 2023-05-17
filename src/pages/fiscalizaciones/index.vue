@@ -23,7 +23,7 @@
                   color="info"
                   v-bind="attrs"
                   v-on="on"
-                  @click="openModalInspect(a)"
+                  @click="$router.push('/fiscalizaciones/editar/'+item._id)"
                   large
                   >mdi-pencil</v-icon>
           </template>
@@ -43,22 +43,24 @@
         </v-tooltip>
       </template>
       <template v-slot:item.documents="{ item }">
-        <div v-for="a in item.documents" :key="a">
-          <v-tooltip bottom v-if="!loadingFileDownload">
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon 
-                v-bind="attrs"
-                v-on="on"
-                @click="downloadFile(a)"
-                large
-                >mdi-file-download-outline</v-icon>
-            </template>
-            <span>{{a.path}}</span>
-          </v-tooltip>
-          <v-progress-circular v-else
-              indeterminate
-              color="primary"
-          ></v-progress-circular>
+        <div class="d-flex">
+          <div v-for="a in item.documents" :key="a">
+            <v-tooltip bottom v-if="!loadingFileDownload">
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon 
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="downloadFile(a)"
+                  large
+                  >mdi-file-download-outline</v-icon>
+              </template>
+              <span>{{a.name}}</span>
+            </v-tooltip>
+            <v-progress-circular v-else
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+          </div>
         </div>
       </template>
     </v-data-table>
