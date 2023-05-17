@@ -17,4 +17,7 @@ export const actions = {
     async getOneInspect({state, commit}, data){
         return await InspectService.getOneInspect(this.$axios, data)
     },
+    async updateInspect({state, commit}, data){
+        return await InspectService.updateInspect(this.$axios, data)
+    },
 }

@@ -62,7 +62,7 @@
           </v-row>
         </v-form>
         <DragAndDrop @changeFileList="changeFileList" v-if="!data._id"/>
-        <div class="container-filename">
+        <div class="container-filename" v-else>
           <span class="filename" v-for="(f, i) in data.documents" :key="i">
             {{ !!f ? f.name : '' }}
             <button class="ml-auto" type="button" @click="downloadFile(i)" title="Download file" v-if="!!f">
@@ -148,18 +148,20 @@
         }
       },
       async updateInspectService(){
-        console.log("this.data", this.data)
-        // try {
-        //   this.loading = true
-        //   let res = await this.updateInspect(this.data, this.data.documents)
-        //   if(res.success){
-        //     this.$router.back()
-        //   }
-        // } catch (error) {
-        //   console.log("error", error)
-        // } finally {
-        //   this.loading = false
-        // }
+        try {
+          this.loading = true
+          let res = await this.updateInspect({
+            description: this.data.description,
+            _id: this.data._id
+          })
+          if(res.success){
+            this.$router.back()
+          }
+        } catch (error) {
+          console.log("error", error)
+        } finally {
+          this.loading = false
+        }
       }
     },
     created(){

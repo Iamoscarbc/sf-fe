@@ -19,5 +19,8 @@ export default {
     },
     getOneInspect: ($axios, data) => {
         return $axios.$get(`${base}/inspect/${data}`)
-    }
+    },
+    updateInspect: ($axios, data) => {
+        return $axios.$put(`${base}/inspect/${data._id}`, data)
+    },
 }
