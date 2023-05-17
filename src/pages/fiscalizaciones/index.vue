@@ -35,7 +35,7 @@
               color="error"
               v-bind="attrs"
               v-on="on"
-              @click="deleteConfirm(a)"
+              @click="deleteConfirm(item)"
               large
               >mdi-trash-can</v-icon>
           </template>
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import { mapActions } from 'vuex'
 export default {
   name: 'InspectPage',
@@ -89,7 +90,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("inspect", ['getInspects']),
+    ...mapActions("inspect", ['getInspects', 'deleteInspect']),
     async getInspectsService(){
       try {
         this.loading = true
@@ -101,6 +102,30 @@ export default {
         console.log("error", error)
       } finally {
         this.loading = false
+      }
+    },
+    async deleteConfirm(data){
+      Swal.fire({
+        title: '¿Estás seguro de eliminar este registro?',
+        text: "La eliminación es irreversible",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await this.deleteInspectService(data)
+        }
+      })
+    },
+    async deleteInspectService(data){
+      try {
+        let res = await this.deleteInspect(data)
+      } catch (error) {
+        console.log("error", error)
+      } finally {
+        await this.getInspectsService()
       }
     },
     async downloadFile(a){

@@ -23,4 +23,7 @@ export default {
     updateInspect: ($axios, data) => {
         return $axios.$put(`${base}/inspect/${data._id}`, data)
     },
+    deleteInspect: ($axios, data) => {
+        return $axios.$delete(`${base}/inspect/${data._id}`)
+    },
 }

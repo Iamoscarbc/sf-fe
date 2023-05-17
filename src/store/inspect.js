@@ -20,4 +20,7 @@ export const actions = {
     async updateInspect({state, commit}, data){
         return await InspectService.updateInspect(this.$axios, data)
     },
+    async deleteInspect({state, commit}, data){
+        return await InspectService.deleteInspect(this.$axios, data)
+    },
 }
