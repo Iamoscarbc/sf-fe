@@ -61,7 +61,15 @@
             </v-col>
           </v-row>
         </v-form>
-        <DragAndDrop @changeFileList="changeFileList"/>
+        <DragAndDrop @changeFileList="changeFileList" v-if="!data._id"/>
+        <div class="container-filename">
+          <span class="filename" v-for="(f, i) in data.documents" :key="i">
+            {{ !!f ? f.name : '' }}
+            <button class="ml-auto" type="button" @click="downloadFile(i)" title="Download file" v-if="!!f">
+                <v-icon>mdi-download</v-icon>
+            </button>
+          </span>
+        </div>
         <v-btn
             class="mt-3"
             :loading="loading"
@@ -84,10 +92,10 @@
     layout: 'auth',
     components: { DragAndDrop },
     props: {
-        dataProp: {
-            type: Object,
-            default: () => {}
-        }
+      dataProp: {
+        type: Object,
+        default: () => {}
+      }
     },
     data(){
       return {
@@ -140,7 +148,7 @@
         }
       },
       async updateInspectService(){
-        console.log("this.dataProp", this.dataProp)
+        console.log("this.data", this.data)
         // try {
         //   this.loading = true
         //   let res = await this.updateInspect(this.data, this.data.documents)
@@ -154,7 +162,7 @@
         // }
       }
     },
-    mounted(){
+    created(){
       if(!this.$route.params.id){
           this.loading = true
           this.data.date = this.$moment().format('YYYY-MM-DD')
@@ -171,5 +179,35 @@
   }
   </script>
   <style lang="scss">
+  
+  .container-filename{
+        width: 100%;
+        display: flex;
+        height: 100%;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin: 16px 0px;
+        .filename{
+            display: flex;
+            align-items: center;
+            background: #cccccc;
+            padding: 6px 12px;
+            width: calc(100% - 82px);
+            max-width: 23.5%;
+            height: 100%;
+            max-height: 48px;
+            button{
+                .v-icon:hover{
+                    color: #1a4a84 ;
+                }
+            }
+        }
+        label{
+            cursor: pointer;
+            .icon-file{
+                display: flex;
+            }
+        }
+    }
   </style>
   
