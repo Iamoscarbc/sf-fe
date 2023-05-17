@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
 import { mapActions } from 'vuex'
 export default {
   name: 'InspectPage',
@@ -105,7 +104,7 @@ export default {
       }
     },
     async deleteConfirm(data){
-      Swal.fire({
+      this.$swal.fire({
         title: '¿Estás seguro de eliminar este registro?',
         text: "La eliminación es irreversible",
         icon: 'warning',
