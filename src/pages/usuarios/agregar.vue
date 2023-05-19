@@ -170,6 +170,9 @@ export default {
       try {
         this.loading = true
         let res = await this.createUser(this.data)
+        if(res.success){
+          this.$router.back()
+        }
       } catch (error) {
         console.log("error", error)
       } finally {
