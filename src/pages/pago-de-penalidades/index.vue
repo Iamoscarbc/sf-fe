@@ -8,12 +8,20 @@
           Registrar
         </v-btn>
       </div>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Buscar"
+        single-line
+        hide-details
+      ></v-text-field>
       <v-data-table
       :headers="headers"
       :items="list"
       :items-per-page="5"
       class="elevation-1"
       :loading="loading"
+      :search="search"
       loading-text="Obteniendo registros de pago de penalidades"
     >
       <template v-slot:item.actions="{ item }">
@@ -77,6 +85,7 @@
     layout: 'auth',
     data(){
       return {
+        search: '',
         loading: false,
         headers: [
             { text: '', value: 'actions' },
