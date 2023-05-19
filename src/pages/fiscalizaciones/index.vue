@@ -19,7 +19,7 @@
       <template v-slot:item.actions="{ item }">
         <v-tooltip bottom v-if="!loadingFileDownload">
           <template v-slot:activator="{ on, attrs }">
-              <v-icon 
+              <v-icon
                   color="info"
                   v-bind="attrs"
                   v-on="on"
@@ -31,7 +31,7 @@
         </v-tooltip>
         <v-tooltip bottom v-if="!loadingFileDownload">
           <template v-slot:activator="{ on, attrs }">
-            <v-icon 
+            <v-icon
               color="error"
               v-bind="attrs"
               v-on="on"
@@ -44,10 +44,10 @@
       </template>
       <template v-slot:item.documents="{ item }">
         <div class="d-flex">
-          <div v-for="a in item.documents" :key="a">
+          <div v-for="a in item.documents" :key="a.path">
             <v-tooltip bottom v-if="!loadingFileDownload">
               <template v-slot:activator="{ on, attrs }">
-                <v-icon 
+                <v-icon
                   v-bind="attrs"
                   v-on="on"
                   @click="downloadFile(a)"
@@ -128,7 +128,7 @@ export default {
       }
     },
     async downloadFile(a){
-      console.log("a", a)
+      window.open(a.path, '_blank')
     }
   },
   mounted(){

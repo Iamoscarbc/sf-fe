@@ -44,7 +44,7 @@
       </template>
       <template v-slot:item.documents="{ item }">
         <div class="d-flex">
-          <div v-for="a in item.documents" :key="a">
+          <div v-for="a in item.documents" :key="a.path">
             <v-tooltip bottom v-if="!loadingFileDownload">
               <template v-slot:activator="{ on, attrs }">
                 <v-icon
@@ -132,7 +132,7 @@
         }
       },
       async downloadFile(a){
-        console.log("a", a)
+        window.open(a.path, '_blank')
       }
     },
     mounted(){
