@@ -1,9 +1,9 @@
 <template>
     <div class="d-flex flex-column">
         <span>Documentos</span>
-        <div class="drag-and-drop" @dragover="dragover" @dragleave="dragleave" @drop="drop">
+        <div class="drag-and-drop" @dragover="dragover" @dragleave="dragleave" @drop="drop" @click="openFileExplorer()">
             <input type="file" name="fields[assetsFieldHandle][]" multiple id="assetsFieldHandle" @change="onChange" @click="resetImageUploader" ref="file" accept=".pdf,.jpg,.jpeg,.png" />
-        
+
             <div class="container-filename">
                 <span class="filename" v-for="(f, i) in filelist" :key="i">
                     {{ !!f ? f.name : '' }}
@@ -61,6 +61,10 @@ export default {
         // Clean up
         event.currentTarget.classList.add('bg-gray-100');
         event.currentTarget.classList.remove('active');
+    },
+    openFileExplorer(){
+      let assetsFieldHandle = document.getElementById('assetsFieldHandle')
+      assetsFieldHandle.click()
     },
     async uploadDocuments(){
         try {
