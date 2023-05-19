@@ -19,11 +19,11 @@
       <template v-slot:item.actions="{ item }">
         <v-tooltip bottom v-if="!loadingFileDownload">
           <template v-slot:activator="{ on, attrs }">
-              <v-icon 
+              <v-icon
                   color="info"
                   v-bind="attrs"
                   v-on="on"
-                  @click="openModalPaymentPenaltie(a)"
+                  @click="$router.push('/pago-de-penalidades/editar/'+item._id)"
                   large
                   >mdi-pencil</v-icon>
           </template>
@@ -31,11 +31,11 @@
         </v-tooltip>
         <v-tooltip bottom v-if="!loadingFileDownload">
           <template v-slot:activator="{ on, attrs }">
-            <v-icon 
+            <v-icon
               color="error"
               v-bind="attrs"
               v-on="on"
-              @click="deleteConfirm(a)"
+              @click="deleteConfirm(item)"
               large
               >mdi-trash-can</v-icon>
           </template>
@@ -43,31 +43,33 @@
         </v-tooltip>
       </template>
       <template v-slot:item.documents="{ item }">
-        <div v-for="a in item.documents" :key="a">
-          <v-tooltip bottom v-if="!loadingFileDownload">
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon 
-                v-bind="attrs"
-                v-on="on"
-                @click="downloadFile(a)"
-                large
-                >mdi-file-download-outline</v-icon>
-            </template>
-            <span>{{a.path}}</span>
-          </v-tooltip>
-          <v-progress-circular v-else
-              indeterminate
-              color="primary"
-          ></v-progress-circular>
+        <div class="d-flex">
+          <div v-for="a in item.documents" :key="a.path">
+            <v-tooltip bottom v-if="!loadingFileDownload">
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="downloadFile(a)"
+                  large
+                  >mdi-file-download-outline</v-icon>
+              </template>
+              <span>{{a.name}}</span>
+            </v-tooltip>
+            <v-progress-circular v-else
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+          </div>
         </div>
       </template>
-      <template v-slot:item.amount="{ item }">        
+      <template v-slot:item.amount="{ item }">
           <span>S/. {{ item.amount }}</span>
       </template>
     </v-data-table>
     </div>
   </template>
-  
+
   <script>
   import { mapActions } from 'vuex'
   export default {
@@ -91,7 +93,7 @@
       }
     },
     methods: {
-      ...mapActions("payment-penaltie", ['getPaymentsPenalties']),
+      ...mapActions("payment-penaltie", ['getPaymentsPenalties', 'deletePaymentsPenaltie']),
       async getPaymentsPenaltiesService(){
         try {
           this.loading = true
@@ -105,8 +107,32 @@
           this.loading = false
         }
       },
+      async deleteConfirm(data){
+        this.$swal.fire({
+          title: '¿Estás seguro de eliminar este registro?',
+          text: "La eliminación es irreversible",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sí, eliminar'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await this.deletePaymentsPenaltieService(data)
+          }
+        })
+      },
+      async deletePaymentsPenaltieService(data){
+        try {
+          let res = await this.deletePaymentsPenaltie(data)
+        } catch (error) {
+          console.log("error", error)
+        } finally {
+          await this.getPaymentsPenaltiesService()
+        }
+      },
       async downloadFile(a){
-        console.log("a", a)
+        window.open(a.path, '_blank')
       }
     },
     mounted(){
@@ -126,4 +152,3 @@
   }
 }
 </style>
-  
