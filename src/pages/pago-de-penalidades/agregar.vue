@@ -1,21 +1,24 @@
 <template>
-    <div class="payment-penalites-add-page">
-      
-    </div>
-  </template>
-  
-  <script>
-  import { mapActions } from 'vuex'
-  export default {
-    name: 'PaymentPenaltiesAddPage',
-    layout: 'auth'
+  <div class="payment-penaltie-add-page">
+    <h2>Registrar Pago de Penalidades</h2>
+    <AddEditPaymentPenaltie/>
+  </div>
+</template>
+
+<script>
+import AddEditPaymentPenaltie from '@/components/AddEditPaymentPenaltie.vue'
+export default {
+  name: 'PaymentPenaltieAddPage',
+  layout: 'auth',
+  components: {
+    AddEditPaymentPenaltie
   }
-  </script>
+}
+</script>
 <style lang="scss">
-.payment-penalites-add-page{
+.payment-penaltie-add-page{
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 </style>
-  
