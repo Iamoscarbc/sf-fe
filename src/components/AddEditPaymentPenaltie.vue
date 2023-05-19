@@ -255,6 +255,8 @@
           this.loading = true
           let res = await this.updatePaymentsPenaltie({
             paymentReason: this.data.paymentReason,
+            amount: this.data.amount,
+            payer: this.data.payer,
             _id: this.data._id
           })
           if(res.success){
