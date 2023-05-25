@@ -20,4 +20,7 @@ export const actions = {
     async getOneUser({state, commit}, data){
         return await UsersService.getOneUser(this.$axios, data)
     },
+    async deleteUser({state, commit}, data){
+        return await UsersService.deleteUser(this.$axios, data)
+    },
 }

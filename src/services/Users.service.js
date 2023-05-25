@@ -12,4 +12,7 @@ export default {
     getOneUser: ($axios, data) => {
         return $axios.$get(`${base}/user/${data}`)
     },
+    deleteUser: ($axios, data) => {
+        return $axios.$delete(`${base}/user/${data._id}`)
+    }
 }

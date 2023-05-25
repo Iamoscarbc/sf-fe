@@ -43,7 +43,7 @@
             color="error"
             v-bind="attrs"
             v-on="on"
-            @click="deleteConfirm(a)"
+            @click="deleteConfirm(item)"
             large
             >mdi-trash-can</v-icon>
         </template>
@@ -78,7 +78,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("users", ['getUsers']),
+    ...mapActions("users", ['getUsers', 'deleteUser']),
     async getUsersService(){
       try {
         this.loading = true
@@ -92,8 +92,29 @@ export default {
         this.loading = false
       }
     },
-    async downloadFile(a){
-      console.log("a", a)
+    async deleteConfirm(data){
+      this.$swal.fire({
+        title: '¿Estás seguro de eliminar este registro?',
+        text: "La eliminación es irreversible",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await this.deleteUserService(data)
+        }
+      })
+    },
+    async deleteUserService(data){
+      try {
+        let res = await this.deleteUser(data)
+      } catch (error) {
+        console.log("error", error)
+      } finally {
+        await this.getUsersService()
+      }
     }
   },
   mounted(){
