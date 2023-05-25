@@ -4,7 +4,8 @@
       <h2>Registro de Fiscalizaciones</h2>
       <v-btn
         color="primary"
-        to="/fiscalizaciones/agregar">
+        to="/fiscalizaciones/agregar"
+        v-if="!!$auth.user && $auth.user.idProfile.roles.includes('register-inspects')">
         Registrar
       </v-btn>
     </div>
@@ -25,7 +26,7 @@
       loading-text="Obteniendo registros de fiscalizaciones"
     >
       <template v-slot:item.actions="{ item }">
-        <v-tooltip bottom v-if="!loadingFileDownload">
+        <v-tooltip bottom v-if="!loadingFileDownload && !!$auth.user && $auth.user.idProfile.roles.includes('update-inspects')">
           <template v-slot:activator="{ on, attrs }">
               <v-icon
                   color="info"
@@ -37,7 +38,7 @@
           </template>
           <span>Editar</span>
         </v-tooltip>
-        <v-tooltip bottom v-if="!loadingFileDownload">
+        <v-tooltip bottom v-if="!loadingFileDownload && !!$auth.user && $auth.user.idProfile.roles.includes('delete-inspects')">
           <template v-slot:activator="{ on, attrs }">
             <v-icon
               color="error"

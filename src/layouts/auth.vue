@@ -66,30 +66,39 @@ import { mapActions } from 'vuex'
           {
             icon: 'mdi-home',
             title: 'Inicio',
-            to: '/',
-            role: 'home-page'
+            to: '/'
           },
           {
             icon: 'mdi-file-document-arrow-right-outline',
             title: 'Fiscalizaciones',
             to: '/fiscalizaciones',
-            role: 'get-inspections'
+            role: 'view-inspects'
           },
           {
             icon: 'mdi-credit-card-outline',
             title: 'Pago de Penalidades',
             to: '/pago-de-penalidades',
-            role: 'get-payment-penalties'
+            role: 'view-payment-penalties'
           },
           {
             icon: 'mdi-account',
             title: 'Usuarios',
             to: '/usuarios',
-            role: 'get-users'
+            role: 'view-users'
           }
         ]
+        
+        return items.filter(ele => {
+          if(!ele.role){
+            return true
+          }
 
-        return items
+          if(!this.$auth.user){
+            return false            
+          }
+          
+          return this.$auth.user.idProfile.roles.includes(ele.role)
+        })
       }
     },
     methods:{
