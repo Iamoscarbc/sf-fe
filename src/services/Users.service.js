@@ -6,4 +6,10 @@ export default {
     createUser: ($axios, data) => {
         return $axios.$post(`${base}/user`, data)
     },
+    updateUser: ($axios, data) => {
+        return $axios.$put(`${base}/user/${data._id}`, data)
+    },
+    getOneUser: ($axios, data) => {
+        return $axios.$get(`${base}/user/${data}`)
+    },
 }

@@ -13,5 +13,11 @@ export const actions = {
     },
     async createUser({state, commit}, data){
         return await UsersService.createUser(this.$axios, data)
-    }
+    },
+    async updateUser({state, commit}, data){
+        return await UsersService.updateUser(this.$axios, data)
+    },
+    async getOneUser({state, commit}, data){
+        return await UsersService.getOneUser(this.$axios, data)
+    },
 }

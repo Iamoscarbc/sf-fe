@@ -31,7 +31,7 @@
                 color="info"
                 v-bind="attrs"
                 v-on="on"
-                @click="openModalUser(a)"
+                @click="$router.push('/usuarios/editar/'+item._id)"
                 large
                 >mdi-pencil</v-icon>
         </template>
