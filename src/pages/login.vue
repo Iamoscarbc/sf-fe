@@ -44,6 +44,7 @@
   <script>
   export default {
     name: 'LoginPage',
+    layout: 'not-auth',
     data(){
       return{
         showPassword: false,
