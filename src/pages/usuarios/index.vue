@@ -45,9 +45,9 @@
             v-on="on"
             @click="deleteConfirm(item)"
             large
-            >mdi-trash-can</v-icon>
+            >mdi-power-plug-off</v-icon>
         </template>
-        <span>Eliminar</span>
+        <span>Inactivar</span>
       </v-tooltip>
     </template>
   </v-data-table>
