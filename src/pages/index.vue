@@ -4,7 +4,7 @@
       <v-col cols="12" sm="6" md="6">
         <v-select
         :items="listMonths"
-        v-model="filter.monthSelected"
+        v-model="filter.month"
         :menu-props="{ offsetY: true }"
         item-text="month"
         item-value="id"
@@ -18,7 +18,7 @@
       <v-col cols="12" sm="6" md="6">
         <v-select
         :items="listYears"
-        v-model="filter.yearSelected"
+        v-model="filter.year"
         :menu-props="{ offsetY: true }"
         label="Año"
         hide-details="auto"
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'IndexPage',
   layout: 'auth',
@@ -193,8 +194,8 @@ export default {
         }
       },
       filter: {
-        monthSelected: '',
-        yearSelected: new Date().getFullYear()
+        month: '',
+        year: new Date().getFullYear()
       },
       listMonths: [
         {
@@ -246,18 +247,23 @@ export default {
           month: "Diciembre",
         }
       ],
-      listYears: []
+      listYears: [],
+      graphicData: {
+        graphic1: null,
+        graphic2: null,
+        graphic3: null
+      }
     }
   },
   methods: {
+    ...mapActions("indicators", ['getGraphics']),
     getActualMonth(){
       let month = new Date().getMonth()
       month = (month+1)
       if(month < 10){
         month = `0${month}`
       }
-      console.log("month", month)
-      this.filter.monthSelected = this.listMonths.find(x => x.id == month)
+      this.filter.month = month
     },
     getYears(){
       let year = new Date().getFullYear()
@@ -266,11 +272,21 @@ export default {
       }
       this.listYears.sort((a, b) => b - a)
     },
-    changePeriod(){
-      if(!this.filter.monthSelected || !this.filter.yearSelected){
+    async changePeriod(){
+      if(!this.filter.month || !this.filter.year){
         return
       }
-      console.log("getGraphics")
+      try {
+        this.loading = true
+        let res = await this.getGraphics(this.filter)
+        if(res.success){
+          this.graphicData = res.data
+        }
+      } catch (error) {
+        console.log("error", error)
+      } finally {
+        this.loading = false
+      }
     }
   },
   mounted(){
