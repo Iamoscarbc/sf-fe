@@ -2,7 +2,7 @@
     <div class="page-login">
       <div class="form-login">
         <div class="container-logo">
-          <img src="@/assets/img/logo-MMl.png">
+          <img src="@/assets/img/logo-MML.png">
           <span>Control de Registro de Fiscalizaciones</span>
         </div>
         <v-form
