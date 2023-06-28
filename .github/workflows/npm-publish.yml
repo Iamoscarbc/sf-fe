@@ -1,0 +1,29 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "package.json"
+      - ".github/workflows/build.yml"
+
+jobs:
+  build:
+    name: Build compiled JS version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Compile TypeScript into compressed JavaScript
+        run: npm run build
