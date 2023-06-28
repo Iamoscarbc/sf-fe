@@ -251,7 +251,7 @@ export default {
       graphicData: {
         graphic1: null,
         graphic2: null,
-        graphic3: null
+        graphic3: null,
       }
     }
   },
