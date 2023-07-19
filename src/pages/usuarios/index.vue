@@ -114,6 +114,14 @@ export default {
     async deleteUserService(data){
       try {
         let res = await this.deleteUser(data)
+        if(res.success){
+          this.$swal.fire({
+            title: 'Usuario Inactivado',
+            icon: 'success',
+            showCancelButton: false,
+            showConfirmButton: false
+          })
+        }
       } catch (error) {
         console.log("error", error)
       } finally {

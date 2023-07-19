@@ -140,6 +140,12 @@
           let res = await this.createInspect(this.data, this.data.documents)
           if(res.success){
             this.$router.back()
+            this.$swal.fire({
+              title: 'Fiscalización Registrada',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
           }
         } catch (error) {
           console.log("error", error)
@@ -156,6 +162,12 @@
           })
           if(res.success){
             this.$router.back()
+            this.$swal.fire({
+              title: 'Fiscalización Actualizada',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
           }
         } catch (error) {
           console.log("error", error)

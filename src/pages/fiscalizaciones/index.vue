@@ -131,6 +131,14 @@ export default {
     async deleteInspectService(data){
       try {
         let res = await this.deleteInspect(data)
+        if(res.success){
+          this.$swal.fire({
+            title: 'Fiscalización Eliminada',
+            icon: 'success',
+            showCancelButton: false,
+            showConfirmButton: false
+          })
+        }
       } catch (error) {
         console.log("error", error)
       } finally {

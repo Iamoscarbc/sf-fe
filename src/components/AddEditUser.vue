@@ -185,6 +185,12 @@
           let res = await this.createUser(this.data)
           if(res.success){
             this.$router.back()
+            this.$swal.fire({
+              title: 'Usuario Registrado',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
           }
         } catch (error) {
           console.log("error", error)
@@ -198,6 +204,12 @@
           let res = await this.updateUser(this.data)
           if(res.success){
             this.$router.back()
+            this.$swal.fire({
+              title: 'Usuario Actualizado',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
           }
         } catch (error) {
           console.log("error", error)

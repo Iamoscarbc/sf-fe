@@ -135,6 +135,14 @@
       async deletePaymentsPenaltieService(data){
         try {
           let res = await this.deletePaymentsPenaltie(data)
+          if(res.success){
+            this.$swal.fire({
+              title: 'Pago de Penalidad Eliminado',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
+          }
         } catch (error) {
           console.log("error", error)
         } finally {

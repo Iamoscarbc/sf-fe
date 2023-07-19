@@ -243,6 +243,12 @@
           let res = await this.createPaymentsPenaltie(this.data, this.data.documents)
           if(res.success){
             this.$router.back()
+            this.$swal.fire({
+              title: 'Pago de Penalidad Registrado',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
           }
         } catch (error) {
           console.log("error", error)
@@ -261,6 +267,12 @@
           })
           if(res.success){
             this.$router.back()
+            this.$swal.fire({
+              title: 'Pago de Penalidad Actualizado',
+              icon: 'success',
+              showCancelButton: false,
+              showConfirmButton: false
+            })
           }
         } catch (error) {
           console.log("error", error)
