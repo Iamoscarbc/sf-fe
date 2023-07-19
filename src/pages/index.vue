@@ -33,7 +33,7 @@
         <v-card
           elevation="2"
         >
-          <ApexCharts type="bar" height="350" :options="graphic1.chartOptions" :series="graphic1.series"></ApexCharts>
+          <ApexCharts type="bar" height="350" :options="graphic1.chartOptions" :series="series1"></ApexCharts>
         </v-card>  
       </v-col>    
     </v-row>
@@ -42,14 +42,14 @@
         <v-card
           elevation="2"
         >
-          <ApexCharts type="bar" height="350" :options="graphic2.chartOptions" :series="graphic2.series"></ApexCharts>
+          <ApexCharts type="bar" height="350" :options="graphic2.chartOptions" :series="series2"></ApexCharts>
         </v-card>
       </v-col>
       <v-col cols="12" sm="6" md="6">
         <v-card
           elevation="2"
         >
-          <ApexCharts type="bar" height="350" :options="graphic3.chartOptions" :series="graphic3.series"></ApexCharts>
+          <ApexCharts type="bar" height="350" :options="graphic3.chartOptions" :series="series3"></ApexCharts>
         </v-card>
       </v-col>
     </v-row>
@@ -64,16 +64,6 @@ export default {
   data(){   
     return {
       graphic1: {
-        series: [
-          {
-            name: 'Fiscalizaciones',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-          },
-          {
-            name: 'Pago de Penalidades',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-          }
-        ],
         chartOptions: {
           chart: {
             type: 'bar',
@@ -93,9 +83,6 @@ export default {
             show: true,
             width: 2,
             colors: ['transparent']
-          },
-          xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
           },
           fill: {
             opacity: 1
@@ -110,12 +97,6 @@ export default {
         }
       },
       graphic2: {
-        series: [
-          {
-            name: 'Fiscalizaciones',
-            data: [44, 55]
-          }
-        ],
         chartOptions: {
           chart: {
             type: 'bar',
@@ -135,9 +116,6 @@ export default {
             show: true,
             width: 2,
             colors: ['transparent']
-          },
-          xaxis: {
-            categories: ['Usuario 1', 'Usuario 2'],
           },
           fill: {
             opacity: 1
@@ -152,22 +130,17 @@ export default {
         }
       },
       graphic3: {
-        series: [
-          {
-            name: 'Pago de Penalidades',
-            data: [44, 55]
-          }
-        ],
         chartOptions: {
           chart: {
             type: 'bar',
             height: 350
           },
+          colors: ['#00e396'],
           plotOptions: {
             bar: {
               horizontal: false,
               columnWidth: '55%',
-              endingShape: 'rounded'
+              endingShape: 'rounded',
             },
           },
           dataLabels: {
@@ -177,9 +150,6 @@ export default {
             show: true,
             width: 2,
             colors: ['transparent']
-          },
-          xaxis: {
-            categories: ['Usuario 1', 'Usuario 2'],
           },
           fill: {
             opacity: 1
@@ -249,10 +219,53 @@ export default {
       ],
       listYears: [],
       graphicData: {
-        graphic1: null,
-        graphic2: null,
-        graphic3: null,
+        graphic1: [],
+        graphic2: [],
+        graphic3: []
       }
+    }
+  },
+  computed: {
+    series1() {
+      return [{
+        name: 'Fiscalizaciones',
+        data: this.graphicData.graphic1.map((a) => {
+          return {
+            x: a.date,
+            y: a.inspects
+          }
+        })
+      },{
+        name: 'Pago de Penalidades',
+        data: this.graphicData.graphic1.map((a) => {
+          return {
+            x: a.date,
+            y: a.paymentPenalties
+          }
+        })
+      }]
+    },
+    series2() {
+      return [{
+        name: 'Fiscalizaciones',
+        data: this.graphicData.graphic2.map((a) => {
+          return {
+            x: a._id.user,
+            y: a.count
+          }
+        })
+      }]
+    },
+    series3() {
+      return [{
+        name: 'Pago de Penalidades',
+        data: this.graphicData.graphic3.map((a) => {
+          return {
+            x: a._id.user,
+            y: a.count
+          }
+        })
+      }]
     }
   },
   methods: {
