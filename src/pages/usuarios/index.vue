@@ -37,7 +37,7 @@
         </template>
         <span>Editar</span>
       </v-tooltip>
-      <v-tooltip bottom v-if="!loadingFileDownload">
+      <v-tooltip bottom v-if="!loadingFileDownload && item.state != 0">
         <template v-slot:activator="{ on, attrs }">
           <v-icon 
             color="error"
@@ -49,6 +49,11 @@
         </template>
         <span>Inactivar</span>
       </v-tooltip>
+    </template>
+    <template v-slot:item.user="{ item }">
+      <v-badge :color="item.state == 0 ? 'red': 'green'" dot inline left>
+        <span>{{ item.user }}</span>
+      </v-badge>
     </template>
   </v-data-table>
   </div>
@@ -94,13 +99,12 @@ export default {
     },
     async deleteConfirm(data){
       this.$swal.fire({
-        title: '¿Estás seguro de eliminar este registro?',
-        text: "La eliminación es irreversible",
+        title: '¿Estás seguro de inactivar este usuario?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminar'
+        confirmButtonText: 'Sí, inactivar'
       }).then(async (result) => {
         if (result.isConfirmed) {
           await this.deleteUserService(data)
