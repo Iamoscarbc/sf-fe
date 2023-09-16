@@ -67,7 +67,16 @@
     methods: {
       async login(){
         this.loading = true
-        await this.$auth.loginWith('local', { data: this.data })
+        try {
+          await this.$auth.loginWith('local', { data: this.data })
+        } catch (error) {
+          this.$swal.fire({
+            title: error.data.message,
+            icon: 'error',
+            showCancelButton: false,
+            showConfirmButton: false
+          })
+        }
         this.loading = false
       }
     }
