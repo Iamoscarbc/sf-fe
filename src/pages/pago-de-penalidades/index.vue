@@ -149,9 +149,9 @@
           await this.getPaymentsPenaltiesService()
         }
       },
-      async downloadFile(a, item){
-        window.open(`http://localhost:3000/api/files/${item._id}/${a.name}`, '_blank')
-      }
+    async downloadFile(a, item){
+      window.open(`http://206.189.176.12:3000/api/files/${item._id}/${a.name}`, '_blank')
+    }
     },
     mounted(){
       this.getPaymentsPenaltiesService()
