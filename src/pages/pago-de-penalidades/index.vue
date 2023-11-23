@@ -150,7 +150,7 @@
         }
       },
     async downloadFile(a, item){
-      window.open(`http://206.189.176.12:3000/api/files/${item._id}/${a.name}`, '_blank')
+      window.open(`http://206.189.176.12:3000/api/filesPayments/${item._id}/${a.name}`, '_blank')
     }
     },
     mounted(){
