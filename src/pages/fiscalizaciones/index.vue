@@ -59,7 +59,7 @@
                 <v-icon
                   v-bind="attrs"
                   v-on="on"
-                  @click="downloadFile(a)"
+                  @click="downloadFile(a,item)"
                   large
                   >mdi-file-download-outline</v-icon>
               </template>
@@ -145,8 +145,8 @@ export default {
         await this.getInspectsService()
       }
     },
-    async downloadFile(a){
-      window.open(a.path, '_blank')
+    async downloadFile(a, item){
+      window.open(`http://localhost:3000/api/files/${item._id}/${a.name}`, '_blank')
     }
   },
   mounted(){
